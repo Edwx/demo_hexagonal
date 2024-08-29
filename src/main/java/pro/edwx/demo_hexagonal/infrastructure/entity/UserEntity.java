@@ -1,10 +1,7 @@
 package pro.edwx.demo_hexagonal.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,12 +10,13 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "users")
+@Builder
 public class UserEntity implements UserDetails {
 
     @Id
@@ -35,6 +33,7 @@ public class UserEntity implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Builder.Default
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "user_roles",

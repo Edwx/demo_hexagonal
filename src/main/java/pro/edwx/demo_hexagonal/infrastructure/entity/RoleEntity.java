@@ -1,20 +1,18 @@
 package pro.edwx.demo_hexagonal.infrastructure.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "roles")
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
-@Entity
-@Table(name = "roles")
+@Builder
 public class RoleEntity {
 
     @Id
@@ -27,6 +25,7 @@ public class RoleEntity {
     @Column
     private String description;
 
+    @Builder.Default
     @ManyToMany(mappedBy = "roles")
     private Set<UserEntity> users = new HashSet<>();
 

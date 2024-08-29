@@ -5,6 +5,7 @@ import pro.edwx.demo_hexagonal.application.dto.user.UserWithRolesDTO;
 import pro.edwx.demo_hexagonal.application.dto.user.CreateUserRequestDTO;
 import pro.edwx.demo_hexagonal.application.dto.user.UpdateUserRequestDTO;
 import pro.edwx.demo_hexagonal.application.dto.user.UserDTO;
+import pro.edwx.demo_hexagonal.domain.model.Role;
 import pro.edwx.demo_hexagonal.domain.model.User;
 import pro.edwx.demo_hexagonal.infrastructure.entity.UserEntity;
 
@@ -24,14 +25,14 @@ public class UserMapper {
             return null;
         }
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setRoles(user.getRoles().stream()
-            .map(roleMapper::roleToRoleDTO)
-            .collect(Collectors.toSet()));
-        return userDTO;
+        return UserDTO.builder()
+            .id(user.getId())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .roles(user.getRoles().stream()
+                .map(roleMapper::roleToRoleDTO)
+                .collect(Collectors.toSet()))
+            .build();
     }
 
     public User userDTOToUser(UserDTO userDTO) {
@@ -39,14 +40,14 @@ public class UserMapper {
             return null;
         }
 
-        User user = new User();
-        user.setId(userDTO.getId());
-        user.setUsername(userDTO.getUsername());
-        user.setEmail(userDTO.getEmail());
-        user.setRoles(userDTO.getRoles().stream()
-            .map(roleMapper::roleDTOToRole)
-            .collect(Collectors.toSet()));
-        return user;
+        return User.builder()
+            .id(userDTO.getId())
+            .username(userDTO.getUsername())
+            .email(userDTO.getEmail())
+            .roles(userDTO.getRoles().stream()
+                .map(roleMapper::roleDTOToRole)
+                .collect(Collectors.toSet()))
+            .build();
     }
 
     public User createUserRequestDTOToUser(CreateUserRequestDTO createUserRequestDTO) {
@@ -54,12 +55,12 @@ public class UserMapper {
             return null;
         }
 
-        User user = new User();
-        user.setUsername(createUserRequestDTO.getUsername());
-        user.setEmail(createUserRequestDTO.getEmail());
-        user.setPassword(createUserRequestDTO.getPassword());
-        user.setRoleIds(createUserRequestDTO.getRoleIds());
-        return user;
+        return User.builder()
+            .username(createUserRequestDTO.getUsername())
+            .email(createUserRequestDTO.getEmail())
+            .password(createUserRequestDTO.getPassword())
+            .roleIds(createUserRequestDTO.getRoleIds())
+            .build();
     }
 
     public User updateUserFromDTO(User user, UpdateUserRequestDTO updateUserRequestDTO) {
@@ -83,14 +84,18 @@ public class UserMapper {
             return null;
         }
 
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(user.getId());
-        userEntity.setUsername(user.getUsername());
-        userEntity.setEmail(user.getEmail());
-        userEntity.setPassword(user.getPassword());
-        userEntity.setRoles(user.getRoles().stream()
-            .map(roleMapper::roleToRoleEntity)
-            .collect(Collectors.toSet()));
+        UserEntity userEntity = UserEntity.builder()
+            .id(user.getId())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .password(user.getPassword())
+            .build();
+
+        userEntity.setRoles(
+            user.getRoles().stream()
+                .map(roleMapper::roleToRoleEntity)
+                .collect(Collectors.toSet())
+        );
         return userEntity;
     }
 
@@ -99,25 +104,30 @@ public class UserMapper {
             return null;
         }
 
-        User user = new User();
-        user.setId(userEntity.getId());
-        user.setUsername(userEntity.getUsername());
-        user.setEmail(userEntity.getEmail());
-        user.setPassword(userEntity.getPassword());
-        user.setRoles(userEntity.getRoles().stream()
-            .map(roleMapper::roleEntityToRole)
-            .collect(Collectors.toSet()));
+        User user = User.builder()
+            .id(userEntity.getId())
+            .username(userEntity.getUsername())
+            .email(userEntity.getEmail())
+            .password(userEntity.getPassword())
+            .build();
+
+        user.setRoles(
+            userEntity.getRoles().stream()
+                .map(roleMapper::roleEntityToRole)
+                .collect(Collectors.toSet())
+        );
         return user;
     }
 
     public UserWithRolesDTO userToUserWithRolesDTO(User user) {
-        UserWithRolesDTO dto = new UserWithRolesDTO();
-        dto.setId(user.getId());
-        dto.setUsername(user.getUsername());
-        dto.setEmail(user.getEmail());
-        dto.setRoles(user.getRoles().stream()
-            .map(role -> role.getName())
-            .collect(Collectors.joining(", ")));
-        return dto;
+        return UserWithRolesDTO.builder()
+            .id(user.getId())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .roles(user.getRoles().stream()
+                .map(Role::getName)
+                .collect(Collectors.joining(", "))
+            )
+            .build();
     }
 }

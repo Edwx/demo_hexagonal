@@ -60,8 +60,7 @@ public class JwtTokenProvider implements TokenProvider {
         UserDetails userDetails,
         long expiration
     ) {
-        return Jwts
-            .builder()
+        return Jwts.builder()
             .setClaims(extraClaims)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))

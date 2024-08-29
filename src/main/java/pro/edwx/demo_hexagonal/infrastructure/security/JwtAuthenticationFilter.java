@@ -79,7 +79,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
      * @return true si la solicitud es para autenticación, false en caso contrario.
      */
     private boolean isAuthRequest(HttpServletRequest request) {
-        return request.getServletPath().contains("/api/auth");
+        return request.getServletPath().contains("/api/auth/login");
     }
 
     /**

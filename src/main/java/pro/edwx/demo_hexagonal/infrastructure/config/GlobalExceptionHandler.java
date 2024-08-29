@@ -41,12 +41,12 @@ public class GlobalExceptionHandler {
     }
 
     private ResponseEntity<ErrorResponse> buildErrorResponse(Exception ex, String errorCode, HttpStatus status) {
-        ErrorResponse errorResponse = new ErrorResponse(
-            status.value(),
-            status.getReasonPhrase(),
-            errorCode,
-            ex.getMessage()
-        );
+        ErrorResponse errorResponse = ErrorResponse.builder()
+            .status(status.value())
+            .error(status.getReasonPhrase())
+            .errorCode(errorCode)
+            .message(ex.getMessage())
+            .build();
         return new ResponseEntity<>(errorResponse, status);
     }
 

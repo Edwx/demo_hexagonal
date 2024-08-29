@@ -1,9 +1,6 @@
 package pro.edwx.demo_hexagonal.application.dto.user;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pro.edwx.demo_hexagonal.application.dto.role.RoleDTO;
 
 import java.util.HashSet;
@@ -13,12 +10,15 @@ import java.util.Set;
 @AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class UserDTO {
 
     // Getters and Setters
     private Long id;
     private String username;
     private String email;
+
+    @Builder.Default
     private Set<RoleDTO> roles = new HashSet<>();
 
     public UserDTO(Long id, String username, String email) {
@@ -35,5 +35,4 @@ public class UserDTO {
     public void removeRole(RoleDTO role) {
         this.roles.remove(role);
     }
-
 }

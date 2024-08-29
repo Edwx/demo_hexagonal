@@ -1,29 +1,29 @@
 package pro.edwx.demo_hexagonal.domain.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
+@Setter
+@Builder
 public class User {
 
     private Long id;
     private String username;
     private String email;
     private String password;
-    private Set<Role> roles;
-    private Set<Long> roleIds;
 
-    public User() {
-        this.roles = new HashSet<>();
-        this.roleIds = new HashSet<>();
-    }
+    @Builder.Default
+    private Set<Role> roles = new HashSet<>();
+
+    @Builder.Default
+    private Set<Long> roleIds = new HashSet<>();
 
     public User(String username, String email, String password) {
-        this();
         this.username = username;
         this.email = email;
         this.password = password;

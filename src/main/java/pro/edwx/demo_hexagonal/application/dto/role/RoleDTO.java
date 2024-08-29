@@ -1,10 +1,12 @@
 package pro.edwx.demo_hexagonal.application.dto.role;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
+@Builder
 public class RoleDTO {
 
     // Getters y Setters

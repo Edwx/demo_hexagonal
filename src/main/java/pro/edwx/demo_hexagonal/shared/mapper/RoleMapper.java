@@ -15,11 +15,11 @@ public class RoleMapper {
             return null;
         }
 
-        RoleDTO roleDTO = new RoleDTO();
-        roleDTO.setId(role.getId());
-        roleDTO.setName(role.getName());
-        roleDTO.setDescription(role.getDescription());
-        return roleDTO;
+        return RoleDTO.builder()
+            .id(role.getId())
+            .name(role.getName())
+            .description(role.getDescription())
+            .build();
     }
 
     public Role roleDTOToRole(RoleDTO roleDTO) {
@@ -27,11 +27,11 @@ public class RoleMapper {
             return null;
         }
 
-        Role role = new Role();
-        role.setId(roleDTO.getId());
-        role.setName(roleDTO.getName());
-        role.setDescription(roleDTO.getDescription());
-        return role;
+        return Role.builder()
+            .id(roleDTO.getId())
+            .name(roleDTO.getName())
+            .description(roleDTO.getDescription())
+            .build();
     }
 
     public Role createRoleRequestDTOToRole(CreateRoleRequestDTO createRoleRequestDTO) {
@@ -39,10 +39,10 @@ public class RoleMapper {
             return null;
         }
 
-        Role role = new Role();
-        role.setName(createRoleRequestDTO.getName());
-        role.setDescription(createRoleRequestDTO.getDescription());
-        return role;
+        return Role.builder()
+            .name(createRoleRequestDTO.getName())
+            .description(createRoleRequestDTO.getDescription())
+            .build();
     }
 
     public Role updateRoleFromDTO(Role role, UpdateRoleRequestDTO updateRoleRequestDTO) {
@@ -60,11 +60,11 @@ public class RoleMapper {
             return null;
         }
 
-        RoleEntity roleEntity = new RoleEntity();
-        roleEntity.setId(role.getId());
-        roleEntity.setName(role.getName());
-        roleEntity.setDescription(role.getDescription());
-        return roleEntity;
+        return RoleEntity.builder()
+            .id(role.getId())
+            .name(role.getName())
+            .description(role.getDescription())
+            .build();
     }
 
     public Role roleEntityToRole(RoleEntity roleEntity) {
@@ -72,10 +72,10 @@ public class RoleMapper {
             return null;
         }
 
-        Role role = new Role();
-        role.setId(roleEntity.getId());
-        role.setName(roleEntity.getName());
-        role.setDescription(roleEntity.getDescription());
-        return role;
+        return Role.builder()
+            .id(roleEntity.getId())
+            .name(roleEntity.getName())
+            .description(roleEntity.getDescription())
+            .build();
     }
 }
